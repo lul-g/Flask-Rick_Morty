@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RICK AND MORTY CHARACTERS</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Skranji:wght@400;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        background-color: #282b33;
+      }
+      h1 {
+        background-color: white;
+        height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Skranji', cursive;
+        font-size: 3rem;
+      }
+      p {
+        color: rgb(204, 204, 204);
+      }
+      ul {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 2rem;
+        place-items: center;
+        padding: 2rem;
+      }
+      .character {
+        --radius: 10px;
+        border-radius: var(--radius);
+
+        --card-size: 15rem;
+        height: var(--card-size);
+        width: calc(var(--card-size) * 3);
+
+        border: 3px solid;
+        background-color: #3c3e44;
+      }
+
+      a {
+        display: flex;
+        gap: 2rem;
+        text-decoration: none;
+      }
+      a {
+        text-decoration: none;
+        color: #3c3e44;
+      }
+      a:has(.Alive):hover {
+        box-shadow: 0 0 3rem 1rem #20d26a;
+      }
+      a:has(.Dead):hover {
+        box-shadow: 0 0 3rem 1rem #ff464e;
+      }
+      a:hover {
+        box-shadow: 0 0 3rem 1rem #1da1f2;
+      }
+      .img {
+        width: calc(var(--card-size) * 0.9);
+        aspect-ratio: 1/1;
+        border-top-left-radius: var(--radius);
+        border-bottom-left-radius: var(--radius);
+      }
+      .img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+      }
+      .attr {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        color: white;
+      }
+      .name {
+        font-size: 3rem;
+        font-family: 'Bebas Neue', sans-serif;
+      }
+      .status {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+      }
+      .Alive {
+        background-color: #55cc44;
+      }
+      .Dead {
+        background-color: #ff464e;
+      }
+      .status-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% block content %}
+    <h1>👼 The Rick and Morty Characters 😈</h1>
+    <ul>
+      {% for character in characters %}
+      <a
+        href="https://rickandmortyapi.com/api/character/{{character.id}}"
+        class="character"
+      >
+        <div class="img"><img src="{{character.image}}" alt="" /></div>
+        <div class="attr">
+          <span class="name">{{character.name}}</span>
+          <div class="status-container">
+            <span class="status {{character.status}}"></span>
+            {{character.status}} - {{character.species}}
+          </div>
+          <div class="">
+            <p>Last known location</p>
+            {{character.location.name}}
+          </div>
+          <div class="">
+            <p>Origin</p>
+            {{character.origin.name}}
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </ul>
+    {% endblock %}
+  </body>
+</html>
